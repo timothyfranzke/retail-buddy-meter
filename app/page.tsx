@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -12,7 +12,19 @@ interface ApiResponse {
   dataPoints: DataPoint[];
 }
 
+// Component that safely uses searchParams
 export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 flex justify-center items-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 dark:border-gray-100"></div>
+    </div>}>
+      <DataPointsContent />
+    </Suspense>
+  );
+}
+
+// Component that safely uses searchParams
+function DataPointsContent() {
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -56,8 +68,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto">
+    <>
+      <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-4xl mx-auto">
         <header className="mb-8">
           <div className="flex justify-between items-center mb-2">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
@@ -144,10 +157,11 @@ export default function Home() {
           </div>
         )}
 
-        <footer className="mt-12 pt-4 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>Raspberry Pi Test Application | {new Date().getFullYear()}</p>
-        </footer>
+          <footer className="mt-12 pt-4 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>Raspberry Pi Test Application | {new Date().getFullYear()}</p>
+          </footer>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

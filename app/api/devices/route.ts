@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 // In-memory storage for registered devices (will reset on server restart)
 // For a production app, you would use a database instead
-export let devices: Array<{
+let devices: Array<{
   id: string;
   ip: string;
   position: {

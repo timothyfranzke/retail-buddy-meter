@@ -46,7 +46,7 @@ export default function DeviceDetails({ params }: { params: Promise<{ id: string
 
   // Use a placeholder API key. In a production app, you should use environment variables.
   // Note: For this demo, you'll need to replace this with a real Google Maps API key
-  const googleMapsApiKey = "YOUR_GOOGLE_MAPS_API_KEY";
+  const googleMapsApiKey = "AIzaSyA20EE7dxTJHu2wV5uHEus3CyAcxufFeTs";
 
   // Format the timestamp for display
   const formatTimestamp = (timestamp: string) => {
